@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>检测浏览器</title>
+    <style>
+    body {
+        background-image: url('bg.jpg'); /* 替换为你的图片路径 */
+        background-repeat: repeat; /* 平铺背景图片 */
+    }
+    </style>  
+    <script src="./ua-parser.min.js"></script>
+    <script>
+        function detectBrowser(userAgent) {
+            const parser = new UAParser();
+            parser.setUA(userAgent);
+            const result = parser.getResult();
+
+            return {
+                browserName: result.browser.name,
+                browserVersion: result.browser.version,
+                osName: result.os.name,
+                osVersion: result.os.version,
+                deviceType: result.device.type || 'desktop',
+            };
+        }
+
+        // 示例User-Agent字符串
+        const userAgentStrings = [
+		"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 EdgA/131.0.0.0",
+		"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 EdgA/0"
+        ];
+
+        // 检测浏览器信息
+        userAgentStrings.forEach(ua => {
+            const browserInfo = detectBrowser(ua);
+            console.log(`User-Agent: ${ua}`);
+            console.log(`检测到浏览器: ${browserInfo.browserName} ${browserInfo.browserVersion}`);
+            console.log(`操作系统: ${browserInfo.osName} ${browserInfo.osVersion}`);
+            console.log(`设备类型: ${browserInfo.deviceType}`);
+            console.log('---------------------------');
+        });
+    </script>  
+</head>
+<body>
+</body>
+</html>
